@@ -1,3 +1,6 @@
+var fs        = require("fs");
+var gtxParser = require("gettext-parser");
+
 module.exports = {
 	// PHP StripSlash equivalent
 	stripslashes: function (str) {
