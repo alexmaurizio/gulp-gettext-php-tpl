@@ -16,7 +16,9 @@ npm install --save-dev alexmaurizio/gulp-gettext-php-tpl
 
 ### Usage
 Here's an example task in your Gulpfile.js you can use.
+
 As of now, you have to chain the methods and the concat to generate the .POT, then you need to pass the .POT down to the msgmerges. See next section for future improvals!
+
 All the paths are customizable in the paths config object
 
 ```javascript
@@ -37,10 +39,10 @@ var paths = {
     templates: 'templates/**/*.tpl',
     classes: 'classes/**/*.php',
     dest: 'locale',
-    potName: '/portal.pot',
+    potName: '/translations.pot',
     poMoNames: {
-      it: '/it_IT/LC_MESSAGES/portal',
-      en: '/en_US/LC_MESSAGES/portal'
+      it: '/it_IT/translations',
+      en: '/en_US/translations'
     }
   }
 };
@@ -102,11 +104,11 @@ I'm working in making it more flexible and usable for generic use cases.
 
 PRs are welcome!
 
-#####Actual support:
+##### Actual support:
 - *Smarty*: `{t}**{/t}` and `{t params} ** {/t}` formats
 - *PHP*: only `_('string')` is supported now
 
-#####TODO:
+##### TODO:
 - More robust extraction from templates
 - Passing data down the stream in a more structured way (simple lines as of now)
 - Keyword custom configuration
