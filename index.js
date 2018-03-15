@@ -103,10 +103,34 @@ function stringListToPOT()
 	})
 }
 
+// Takes a potFile from the stream in and creates a .po file
+// Passes over the potFile to the stream
+function msgmerge(targetFile)
+{
+
+	if (!targetFile) {
+		throw new PluginError(PLUGIN_NAME, 'Target file path is required');
+	}
+
+	return through.obj(function (file, enc, callback) {
+
+		// Load the potFile from the stream
+		var potFile = gtxParser.po.parse(file.contents.toString());
+
+		// Makes PO and MO files from old PO and the new POT
+		utils.makePoMo(targetFile, potFile);
+
+		// Callback and passes over the original file
+		callback(null, file);
+
+	})
+}
+
 // Exporting the plugin main functions
 module.exports = {
 	parseAsStringList: parseAsStringList,
 	stringListToPOT: stringListToPOT,
+	msgmerge: msgmerge
 }
 
 
