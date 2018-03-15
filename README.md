@@ -53,7 +53,6 @@ var paths = {
  
 // Cleanup Task
 function clean() {
-  del(['public/css/style.css']);
   return del([paths.locale.dest + paths.locale.potName]);
 }
  
