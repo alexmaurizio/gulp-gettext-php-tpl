@@ -9,12 +9,13 @@ var del				= require('del');
 var each		 	= require('gulp-each');
 var path			= require('path');
 var gtxParser = require("gettext-parser");
+var utils     = require('src/helpers.js');
 
 // Consts
-const PLUGIN_NAME = 'gulp-gettext-php-smarty-parser';
+const PLUGIN_NAME = 'gulp-gettext-php-tpl';
 
-// Plugin level function
-function gulpGettextPHPParser() {
+// Iterates each file and passes over a list of IDs for the GetText methods
+function parseAsStringList() {
 
   // Creating a stream through which each file will pass
   return each(function (content, file, callback) {
@@ -46,7 +47,7 @@ function gulpGettextPHPParser() {
 
 				// Get the string and make some string fixes to match original style
 				var string = match[1];
-				string = stripslashes(string);
+				string = utils.stripslashes(string);
 				string = string.replace(/[\r\n]+/g, "");
 				string = string.replace(/\\([\s\S])|(")/g, "\\$1$2");
 
@@ -70,25 +71,42 @@ function gulpGettextPHPParser() {
 
 }
 
-// PHP StripSlash equivalent
-function stripslashes(str) {
-	return (str + '')
-			.replace(/\\(.?)/g, function (s, n1) {
-				switch (n1) {
-					case '\\':
-						return '\\'
-					case '0':
-						return '\u0000'
-					case '':
-						return ''
-					default:
-						return n1
-				}
-			})
+// Takes a (concatenated) list of ID Strings from the GetText Parser and pushes over a complete POT File
+function stringListToPOT()
+{
+	return through.obj(function (file, enc, cb) {
+
+		// Translate in array and sort alphabetically
+		var tradArray = file.contents.toString().split("\n").sort();
+
+		// Remove duplicates and empty ones
+		var uniques = {};
+		uniques = tradArray.filter(function(item) {
+			if (item === undefined) return false;
+			if (item === '') return false;
+			return uniques.hasOwnProperty(item) ? false : (uniques[item] = true);
+		});
+
+		// Build the POT File
+		var pot = utils.generatePotHeader() + '\nmsgid "' +
+				uniques.join('"\nmsgstr ""\n\nmsgid "')
+				+ '"\nmsgstr ""\n';
+
+		// Push the new file to the buffer, callback empty
+		var f = path.parse(file.path);
+		var newFile = file.clone();
+		newFile.contents = new Buffer(pot);
+		newFile.path = path.join(f.dir, f.name + f.ext);
+		this.push(newFile);
+		cb();
+
+	})
 }
 
-// Exporting the plugin main function
-module.exports = gulpGettextPHPParser;
-
+// Exporting the plugin main functions
+module.exports = {
+	parseAsStringList: parseAsStringList,
+	stringListToPOT: stringListToPOT,
+}
 
 
