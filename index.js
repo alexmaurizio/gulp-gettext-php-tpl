@@ -9,7 +9,7 @@ var del				= require('del');
 var each		 	= require('gulp-each');
 var path			= require('path');
 var gtxParser = require("gettext-parser");
-var utils     = require('src/helpers.js');
+var utils     = require('./src/helpers.js');
 
 // Consts
 const PLUGIN_NAME = 'gulp-gettext-php-tpl';
