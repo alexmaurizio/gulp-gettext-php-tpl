@@ -16,11 +16,6 @@ const PLUGIN_NAME = 'gulp-gettext-php-smarty-parser';
 // Plugin level function
 function gulpGettextPHPParser() {
 
-  if (!prefixText) {
-    throw new PluginError(PLUGIN_NAME, 'Missing prefix text!');
-  }
-  prefixText = new Buffer(prefixText); // allocate ahead of time
-
   // Creating a stream through which each file will pass
   return each(function (content, file, callback) {
 
