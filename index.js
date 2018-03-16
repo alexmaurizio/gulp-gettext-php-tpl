@@ -218,8 +218,6 @@ function generatePOT(file) {
 			// File is not a .tpl or .php - Ignore!
 			cb();
 		}
-
-		cb();
 	}
 
 	function endStream(cb) {
