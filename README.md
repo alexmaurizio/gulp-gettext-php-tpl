@@ -65,19 +65,19 @@ function watch() {
  
 // Parse .TPL and .PHP files
 function parseTemplates() {
-	// Load paths in array containing PHP and TPL Files via src
-	return gulp.src([paths.locale.classes, paths.locale.templates])
-	
-			// Pipe all files in generator (concat)
-			.pipe(phpParser.generatePOT(paths.locale.potName))
-			
-			// Save the POT to the destination
-			.pipe(gulp.dest(paths.locale.dest))
-			
-			// For each language, pick the original .PO file and update it against the POT
-			// Also automatically regenerates .MO machine files
-			.pipe(phpParser.mergeAndMake(paths.locale.dest + paths.locale.poMoNames.it))
-			.pipe(phpParser.mergeAndMake(paths.locale.dest + paths.locale.poMoNames.en));
+  // Load paths in array containing PHP and TPL Files via src
+  return gulp.src([paths.locale.classes, paths.locale.templates])
+    
+    // Pipe all files in generator (concat)
+    .pipe(phpParser.generatePOT(paths.locale.potName))
+    
+    // Save the POT to the destination
+    .pipe(gulp.dest(paths.locale.dest))
+    
+    // For each language, pick the original .PO file and update it against the POT
+    // Also automatically regenerates .MO machine files
+    .pipe(phpParser.mergeAndMake(paths.locale.dest + paths.locale.poMoNames.it))
+    .pipe(phpParser.mergeAndMake(paths.locale.dest + paths.locale.poMoNames.en));
 }
 
  
@@ -104,7 +104,7 @@ PRs are welcome!
 
 ##### TODO:
 - More robust extraction from templates
-- ~~Passing data down the stream in a more structured way (simple lines as of now)~~
+- ~~Passing data down the stream in a more structured way~~
 - Keyword custom configuration
 - Independent functions and not chained
 - Multiline Gettext support
