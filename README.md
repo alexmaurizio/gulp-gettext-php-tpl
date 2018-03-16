@@ -32,7 +32,6 @@ All the paths are customizable in the paths config object
 // Module Loading
 var gulp      = require('gulp');
 var del       = require('del');
-var concat    = require('gulp-concat');
 var phpParser = require("gulp-gettext-php-tpl");
  
 // Paths Setup
