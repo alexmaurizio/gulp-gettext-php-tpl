@@ -240,7 +240,7 @@ function generatePOT(file) {
 
 		// Parse the content
 		// Translate in array and sort alphabetically
-		var tradArray = concat.contents.toString().split("\n").sort();
+		var tradArray = concat.content.toString().split("\n").sort();
 
 		// Remove duplicates and empty ones
 		var uniques = {};
