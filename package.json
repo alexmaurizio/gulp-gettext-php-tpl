@@ -14,7 +14,9 @@
     "gulp-sass": "^3.2.0",
     "gulp-uglify": "^3.0.0",
     "plugin-error": "latest",
-    "through2": "^2.0.3"
+    "through2": "^2.0.3",
+    "vinyl": "latest",
+    "concat-with-sourcemaps": "latest"
   },
   "devDependencies": {
     "gulp": "^3.9.1"
