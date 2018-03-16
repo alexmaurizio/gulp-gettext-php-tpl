@@ -7,12 +7,13 @@ Allows various .POT/.PO/.MO manipulations without the need of GNU Gettext on you
 Can also be used in watch tasks to automatically update the .POT translation template to match current gettext usage in .php and .tpl files
 
 ### Installation
-This library is still in development to make it more robust and generic, so it's still not available on NPM.
+This library is still in development to make it more robust and generic. Keep this in mind.
 
-To install it in your project anyway, run
+To install, run
 ```
-npm install --save-dev alexmaurizio/gulp-gettext-php-tpl
+npm install gulp-gettext-php-tpl --save-dev 
 ```
+in your project directory. Make sure to have Gulp to use this plugin.
 
 ### Usage
 Here's an example task in your Gulpfile.js you can use.
