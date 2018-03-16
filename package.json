@@ -1,7 +1,7 @@
 {
   "name": "gulp-gettext-php-tpl",
-  "version": "1.1.0",
-  "description": "Gulp plugin to parse .php and .tpl (Smarty) files, detect GNU Gettext usages in it, compiles a .POT file and then updates existing .PO/.MO files with the newly generated template",
+  "version": "1.1.1",
+  "description": "Gulp plugin to parse .php and .tpl (Smarty) files, detect GNU Gettext usages in it and compile a .POT file. It can then merge .PO/.MO files with the newly generated template",
   "main": "index.js",
   "dependencies": {
     "concat-with-sourcemaps": "latest",
