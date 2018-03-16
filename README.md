@@ -17,7 +17,9 @@ npm install --save-dev alexmaurizio/gulp-gettext-php-tpl
 ### Usage
 Here's an example task in your Gulpfile.js you can use.
 
-As of now, you have to chain the methods and the concat to generate the .POT, then you need to pass the .POT down to the msgmerges. See next section for future improvals!
+You can get your files with `gulp.src()`, even from multiple paths, then you can pipe them into the generatePOT() method, it will take care of generating a single, functional .POT files from all your classes and templates. 
+
+Read the next section about limitations and usage detections.
 
 All the paths are customizable in the paths config object
 
@@ -62,27 +64,21 @@ function watch() {
   gulp.watch(paths.styles.src, styles);
 }
  
-// Parse .TPL and .PHP files Task
+// Parse .TPL and .PHP files
 function parseTemplates() {
-  // Load paths in array containing PHP and TPL Files via src
-  return gulp.src([paths.locale.classes, paths.locale.templates])
-  
-      // Parse each file as a simple list of GetText strings
-      .pipe(phpParser.parseAsStringList())
-      
-      // Concatenate all the files in a .POT
-      .pipe(concat(paths.locale.potName))
-      
-      // Convert this list into a working POT
-      .pipe(phpParser.stringListToPOT())
-      
-      // Save the POT to the destination
-      .pipe(gulp.dest(paths.locale.dest))
-      
-      // For each language, pick the original .PO file and update it against the POT
-      // Also automatically regenerates .MO machine files
-      .pipe(phpParser.msgmerge(paths.locale.dest + paths.locale.poMoNames.it))
-      .pipe(phpParser.msgmerge(paths.locale.dest + paths.locale.poMoNames.en));
+	// Load paths in array containing PHP and TPL Files via src
+	return gulp.src([paths.locale.classes, paths.locale.templates])
+	
+			// Pipe all files in generator (concat)
+			.pipe(phpParser.generatePOT(paths.locale.potName))
+			
+			// Save the POT to the destination
+			.pipe(gulp.dest(paths.locale.dest))
+			
+			// For each language, pick the original .PO file and update it against the POT
+			// Also automatically regenerates .MO machine files
+			.pipe(phpParser.mergeAndMake(paths.locale.dest + paths.locale.poMoNames.it))
+			.pipe(phpParser.mergeAndMake(paths.locale.dest + paths.locale.poMoNames.en));
 }
 
  
@@ -109,7 +105,7 @@ PRs are welcome!
 
 ##### TODO:
 - More robust extraction from templates
-- Passing data down the stream in a more structured way (simple lines as of now)
+- ~~Passing data down the stream in a more structured way (simple lines as of now)~~
 - Keyword custom configuration
 - Independent functions and not chained
 - Multiline Gettext support
