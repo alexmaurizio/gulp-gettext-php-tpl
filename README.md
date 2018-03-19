@@ -61,7 +61,6 @@ function clean() {
 // Watch Task
 function watch() {
   gulp.watch([paths.locale.classes, paths.locale.templates], parseTemplates);
-  gulp.watch(paths.styles.src, styles);
 }
  
 // Parse .TPL and .PHP files

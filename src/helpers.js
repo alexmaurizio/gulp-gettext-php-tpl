@@ -29,8 +29,8 @@ function generatePotHeader() {
 	var now = d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2) + ' ' +
 			+('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2) + "+0000";
 
-	return '# POT Base Template for Altervista Portal Translation\n' +
-			'# Copyright (C) 2018 Altervista\n' +
+	return '# POT Base Template for PROJECT Translation\n' +
+			'# Copyright (C) 2018 COMPANY\n' +
 			'# This file is distributed under the same license as the PACKAGE package.\n' +
 			'# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.\n' +
 			'#\n' +
