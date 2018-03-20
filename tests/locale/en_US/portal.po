@@ -1,7 +1,7 @@
 # English translations for PORTAL
 # Copyright (C) 2018 COMPANY
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 msgid ""
 msgstr "Project-Id-Version: 1\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2018-03-12 16:04+0000\nPO-Revision-Date: 2018-03-07 10:35+0100\nLast-Translator: Fabio Rubioglio\nLanguage-Team: Italian <kde-i18n-it@kde.org>\nLanguage: en\nMIME-Version: 1.0\nContent-Type: text/plain; charset=utf-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n != 1);\nX-Generator: Poedit 2.0.5\n"
 

@@ -117,7 +117,7 @@ Still does not allow to create a brand new .PO file. Prepare one beforehand by r
 
 
 
-### Support, Limitations and TODOs
+## Support, Limitations and TODOs
 Support is actually implemented only for very specific usage cases.
 
 I'm working in making it more flexible and usable for generic use cases.

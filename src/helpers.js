@@ -34,7 +34,7 @@ function generatePotHeader(options) {
 	// Assemble Header
 	return '# POT Base Template for '+options.project+' Translation\n' +
 			'# Copyright (C) 2018 '+options.company+'\n' +
-			'# This file is distributed under the same license as the PACKAGE package.\n' +
+			'# This file is distributed under the same license as the '+options.package+' package.\n' +
 			'# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.\n' +
 			'#\n' +
 			'#, fuzzy\n' +

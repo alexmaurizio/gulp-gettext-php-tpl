@@ -16,8 +16,9 @@ function generatePOT(file, opts) {
 
 	// Default Options and override
 	var options = {
-		'project' : 'PROJECT',
-		'company' : 'COMPANY'
+		project : 'PROJECT',
+		company : 'COMPANY',
+		package : 'PACKAGE'
 	};
 	if(opts && typeof opts === 'object')
 		options = Object.assign(options, opts);
