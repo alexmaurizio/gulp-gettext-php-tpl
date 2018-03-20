@@ -6,7 +6,7 @@ Allows various .POT/.PO/.MO manipulations without the need of GNU Gettext on you
 
 Can also be used in watch tasks to automatically update the .POT translation template to match current gettext usage in .php and .tpl files
 
-### Installation
+## Installation
 This library is still in development to make it more robust and generic. Keep this in mind.
 
 To install, run
@@ -15,7 +15,7 @@ npm install gulp-gettext-php-tpl --save-dev
 ```
 in your project directory. Make sure to have Gulp to use this plugin.
 
-### Usage
+## Usage
 Here's an example task in your Gulpfile.js you can use.
 
 You can get your files with `gulp.src()`, even from multiple paths, then you can pipe them into the generatePOT() method, it will take care of generating a single, functional .POT files from all your classes and templates. 
@@ -91,20 +91,49 @@ gulp.task('build', [ 'clean', 'parseTemplates']);
 gulp.task('default', ['build']); 
 ```
 
-#### Support, Limitations and TODOs
+## API
+
+### `generatePOT(name [, options])`
+
+Generates a working POT template file.
+
+Concatenates all files piped in via `gulp.src()` (any number), parses the .PHP and .TPL files to find gettext usages, and finalizes the .POT. Use `gulp.dest()` to save the file, if needed. 
+
+This .POT files must be streamed down to the mergeAndMake functions.
+
+These are the optional opts you can pass to the method, that will customize the header of the .POT
+```javascript
+{
+  'project' : 'Your Project Name',
+  'company' : 'Your Company Name'
+};
+```
+
+### `mergeAndMake(path)`
+
+Takes a piped in .POT file (made by generatePOT) and updates the original .PO files
+
+Still does not allow to create a brand new .PO file. Prepare one beforehand by renaming the .POT file.
+
+
+
+### Support, Limitations and TODOs
 Support is actually implemented only for very specific usage cases.
 
 I'm working in making it more flexible and usable for generic use cases.
 
 PRs are welcome!
 
-##### Actual support:
+#### Actual support:
 - *Smarty*: `{t}**{/t}` and `{t params} ** {/t}` formats
 - *PHP*: only `_('string')` is supported now
 
-##### TODO:
-- More robust extraction from templates
+#### TODO:
+- ~~Customizable header~~
 - ~~Passing data down the stream in a more structured way~~
+- ~~Add tests~~
+- Allow creation of new .PO files if original ones are not present
+- More robust extraction from templates
 - Keyword custom configuration
 - Independent functions and not chained
 - Multiline Gettext support
