@@ -12,7 +12,18 @@ const PLUGIN_NAME = 'gulp-gettext-php-tpl';
 
 // Main method to generate a POT file from a lot of files
 // Uses modified concatenation logic from gulp-concat
-function generatePOT(file) {
+function generatePOT(file, opts) {
+
+	// Default Options and override
+	var options = {
+		'project' : 'PROJECT',
+		'company' : 'COMPANY'
+	};
+	if(opts && typeof opts === 'object')
+		options = Object.assign(options, opts);
+
+
+	// File missing throw error
 	if (!file) {
 		throw new PluginError(PLUGIN_NAME, 'Missing file option');
 	}
@@ -139,9 +150,10 @@ function generatePOT(file) {
 		});
 
 		// Build the POT File content
-		var potContent = utils.generatePotHeader() + '\nmsgid "' +
+		var potContent = utils.generatePotHeader(options) + '\nmsgid "' +
 				uniques.join('"\nmsgstr ""\n\nmsgid "')
 				+ '"\nmsgstr ""\n';
+
 
 		// Set the POT file new content and push it downstream
 		potFile.contents = new Buffer(potContent);

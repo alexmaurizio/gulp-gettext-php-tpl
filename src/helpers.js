@@ -24,13 +24,16 @@ function stripslashes(str) {
 }
 
 // The .POT Header block
-function generatePotHeader() {
+function generatePotHeader(options) {
+
+	// Get the date
 	var d = new Date();
 	var now = d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2) + ' ' +
 			+('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2) + "+0000";
 
-	return '# POT Base Template for PROJECT Translation\n' +
-			'# Copyright (C) 2018 COMPANY\n' +
+	// Assemble Header
+	return '# POT Base Template for '+options.project+' Translation\n' +
+			'# Copyright (C) 2018 '+options.company+'\n' +
 			'# This file is distributed under the same license as the PACKAGE package.\n' +
 			'# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.\n' +
 			'#\n' +
@@ -57,9 +60,12 @@ function makePoMo(path, potFile) {
 	poFile = gtxParser.po.parse(poFile);
 	poFile = mergeGettextArrays(poFile, potFile);
 
-	// Write the PO and the MO
+	// Write the PO file
 	var output = gtxParser.po.compile(poFile, {foldLength: false});
 	fs.writeFileSync(path + ".po", output);
+
+	// Clean the PO Array and write the MO file
+	poFile = cleanGettextArray(poFile);
 	output = gtxParser.mo.compile(poFile);
 	fs.writeFileSync(path + ".mo", output);
 }
@@ -86,12 +92,31 @@ function mergeGettextArrays(po, pot) {
 	return po;
 }
 
+// Clean a GetTextArray from empty strings (for MO generation)
+function cleanGettextArray(po) {
+	// Holder array for translated strings
+	var filteredPo = {};
+
+	// Iterate PO translations
+	Object.keys(po.translations[""]).forEach(function (key) {
+		// If translation is found..
+		if (po.translations[""][key]['msgstr'][0] !== "") {
+			// Copy it back
+			filteredPo[key] = po.translations[""][key];
+		}
+	});
+	// Replace the translations with the filled ones and return
+	po.translations[""] = filteredPo;
+	return po;
+}
+
 // Export helper functions
 module.exports = {
 	stripslashes: stripslashes,
 	generatePotHeader: generatePotHeader,
 	makePoMo: makePoMo,
-	mergeGettextArrays: mergeGettextArrays
+	mergeGettextArrays: mergeGettextArrays,
+	cleanGettextArray: cleanGettextArray
 };
 
 
